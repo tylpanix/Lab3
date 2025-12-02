@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 const TodoItem = ({ id, task, onDelete }) => {
   const [completed, setCompleted] = useState(false)
@@ -7,9 +7,7 @@ const TodoItem = ({ id, task, onDelete }) => {
     setCompleted(prev => !prev)
   }
 
-  const handleDelete = () => {
-    onDelete(id)
-  }
+  console.log("Render:", task) // для профайлінгу
 
   return (
     <div className={`todo-item ${completed ? 'completed' : ''}`}>
@@ -22,11 +20,11 @@ const TodoItem = ({ id, task, onDelete }) => {
         />
         <span className="task-text">{task}</span>
       </div>
-      <button onClick={handleDelete} className="delete-button">
+      <button onClick={() => onDelete(id)} className="delete-button">
         Delete
       </button>
     </div>
   )
 }
 
-export default TodoItem
+export default memo(TodoItem)
